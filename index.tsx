@@ -91,7 +91,7 @@ contactForm?.addEventListener('submit', (e) => {
 
 // Explicit smooth scrolling for older browsers if needed, though scroll-behavior: smooth handles most
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
+  anchor.addEventListener('click', function (this: HTMLElement, e) {
     const href = this.getAttribute('href');
     if (href && href.startsWith('#')) {
       e.preventDefault();
