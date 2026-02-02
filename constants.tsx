@@ -1,0 +1,1 @@
+// File removed in favor of hardcoded HTML for direct implementation

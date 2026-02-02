@@ -31,18 +31,14 @@ let isMenuOpen = false;
 function toggleMenu() {
   isMenuOpen = !isMenuOpen;
   if (isMenuOpen) {
-    mobileMenu?.classList.remove('max-h-0');
-    mobileMenu?.classList.add('max-h-[500px]');
-    // Update Lucide icon to "x"
+    mobileMenu?.classList.add('open');
     if (menuIconContainer) {
       menuIconContainer.setAttribute('data-lucide', 'x');
       // @ts-ignore
       lucide.createIcons();
     }
   } else {
-    mobileMenu?.classList.add('max-h-0');
-    mobileMenu?.classList.remove('max-h-[500px]');
-    // Update Lucide icon to "menu"
+    mobileMenu?.classList.remove('open');
     if (menuIconContainer) {
       menuIconContainer.setAttribute('data-lucide', 'menu');
       // @ts-ignore
@@ -73,7 +69,6 @@ document.addEventListener('click', (e) => {
 // Form submission handler
 contactForm?.addEventListener('submit', (e) => {
   e.preventDefault();
-  // Simulate submission
   const button = contactForm.querySelector('button');
   if (button) {
     const originalText = button.innerHTML;
@@ -89,9 +84,9 @@ contactForm?.addEventListener('submit', (e) => {
   }
 });
 
-// Explicit smooth scrolling for older browsers if needed, though scroll-behavior: smooth handles most
+// Explicit smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (this: HTMLElement, e) {
+  anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
     if (href && href.startsWith('#')) {
       e.preventDefault();
