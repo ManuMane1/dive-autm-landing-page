@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="/main.js" defer></script>
+    <script src="main.js"></script>
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -45,6 +45,16 @@
       }
       .mobile-menu-panel.open {
         max-height: 100vh;
+      }
+
+      /* Spinner animation */
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .animate-spin {
+        animation: spin 1s linear infinite;
       }
     </style>
   </head>
