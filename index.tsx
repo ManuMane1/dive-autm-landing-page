@@ -1,4 +1,5 @@
-/*// Initialize Lucide icons
+
+// Initialize Lucide icons
 // @ts-ignore
 lucide.createIcons();
 
@@ -8,6 +9,7 @@ const mobileMenuButton = document.getElementById('mobile-menu-button');
 const menuIconContainer = document.getElementById('menu-icon');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
+const contactForm = document.getElementById('contact-form') as HTMLFormElement;
 const yearSpan = document.getElementById('year');
 
 // Update year in footer
@@ -65,38 +67,57 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Form submission handler
-const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
-
+// Updated Form submission handler with real email delivery support
 contactForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
-
-  const button = contactForm.querySelector('button');
-  if (!button) return;
-
-  const originalText = button.innerHTML;
-  button.disabled = true;
-  button.innerHTML = 'Enviando...';
-
-  const formData = new FormData(contactForm);
+  
+  const form = e.target as HTMLFormElement;
+  const button = document.getElementById('submit-button') as HTMLButtonElement;
+  const btnText = button.querySelector('span');
+  const spinner = document.getElementById('btn-spinner');
+  
+  // Update UI to loading state
+  if (button) button.disabled = true;
+  if (btnText) btnText.textContent = 'Enviando...';
+  spinner?.classList.remove('hidden');
 
   try {
-    await fetch('/', {
+    // REQUISITO: Cambia 'mjkgpzye' por tu ID de Formspree real
+    // Si no tenés uno, crealo gratis en https://formspree.io/f/mjkgpzye
+    const FORMSPREE_ID = 'mjkgpzye'; 
+    const endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
+    
+    const formData = new FormData(form);
+    
+    const response = await fetch(endpoint, {
       method: 'POST',
-      body: formData
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
     });
 
-    alert('¡Gracias por tu interés! Hemos recibido tu solicitud.');
-    contactForm.reset();
-  } catch {
-    alert('Error al enviar el formulario. Intentá nuevamente.');
+    if (response.ok) {
+      alert("¡Gracias por tu interés! Hemos recibido tu solicitud. El equipo de Dive Automations se pondrá en contacto con vós a la brevedad.");
+      form.reset();
+    } else {
+      const data = await response.json();
+      // FIXED: Use standard property check instead of Object.hasOwn for compatibility with older TypeScript targets
+      if (data && data.errors) {
+        alert("Error: " + data["errors"].map((error: any) => error["message"]).join(", "));
+      } else {
+        alert("Oops! Hubo un problema al enviar el formulario. Por favor, intentá de nuevo o contactanos directamente por WhatsApp.");
+      }
+    }
+  } catch (error) {
+    alert("Hubo un error de conexión. Por favor, verificá tu internet e intentá de nuevo.");
   } finally {
-    button.disabled = false;
-    button.innerHTML = originalText;
+    // Reset UI state
+    if (button) button.disabled = false;
+    if (btnText) btnText.textContent = 'Evaluar mi caso';
+    spinner?.classList.add('hidden');
   }
 });
-
-
 
 // Explicit smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -121,4 +142,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       }
     }
   });
-});*/
+});
