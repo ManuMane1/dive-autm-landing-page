@@ -8,7 +8,6 @@ const mobileMenuButton = document.getElementById('mobile-menu-button');
 const menuIconContainer = document.getElementById('menu-icon');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
-const contactForm = document.getElementById('contact-form');
 const yearSpan = document.getElementById('year');
 
 // Update year in footer
@@ -67,22 +66,37 @@ document.addEventListener('click', (e) => {
 });
 
 // Form submission handler
-contactForm?.addEventListener('submit', (e) => {
+const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
+
+contactForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
+
   const button = contactForm.querySelector('button');
-  if (button) {
-    const originalText = button.innerHTML;
-    button.disabled = true;
-    button.innerHTML = 'Enviando...';
-    
-    setTimeout(() => {
-      alert("¡Gracias por tu interés! Hemos recibido tu solicitud. Nos pondremos en contacto con vós a la brevedad.");
-      button.disabled = false;
-      button.innerHTML = originalText;
-      (contactForm as HTMLFormElement).reset();
-    }, 1500);
+  if (!button) return;
+
+  const originalText = button.innerHTML;
+  button.disabled = true;
+  button.innerHTML = 'Enviando...';
+
+  const formData = new FormData(contactForm);
+
+  try {
+    await fetch('/', {
+      method: 'POST',
+      body: formData
+    });
+
+    alert('¡Gracias por tu interés! Hemos recibido tu solicitud.');
+    contactForm.reset();
+  } catch {
+    alert('Error al enviar el formulario. Intentá nuevamente.');
+  } finally {
+    button.disabled = false;
+    button.innerHTML = originalText;
   }
 });
+
+
 
 // Explicit smooth scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
