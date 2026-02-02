@@ -1,4 +1,4 @@
-// Initialize Lucide icons
+/*// Initialize Lucide icons
 // @ts-ignore
 lucide.createIcons();
 
@@ -121,4 +121,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       }
     }
   });
-});
+});*/
