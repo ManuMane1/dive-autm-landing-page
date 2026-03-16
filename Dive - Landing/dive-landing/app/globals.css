@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* Colores estáticos de marca */
+@theme {
+  --color-navy: #0b2545;
+  --color-teal: #13808c;
+  --color-teal-dark: #0e6b75;
+  --color-gray-light: #f4f7fa;
+  --color-body: #374151;
+}
+
+/* Tipografía: usa las CSS vars que inyecta Next.js Font */
+@theme inline {
+  --font-display: var(--font-sora);
+  --font-body: var(--font-jakarta);
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Compensa el header fijo al navegar a anclas */
+  scroll-padding-top: 4rem;
+}
+
+body {
+  font-family: var(--font-jakarta), sans-serif;
+  color: #374151;
+  background: #ffffff;
+}
