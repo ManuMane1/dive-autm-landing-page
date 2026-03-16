@@ -98,7 +98,7 @@ const ICONS = [IconAgent, IconFlow, IconDoc];
 
 export default function ServicesSection() {
   return (
-    <section id="servicios" className="bg-gray-light py-24 lg:py-32">
+    <section id="servicios" className="bg-gray-light pt-12 pb-24 lg:pt-16 lg:pb-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Encabezado de sección */}
         <motion.div

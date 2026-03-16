@@ -33,7 +33,7 @@ export default function FAQSection() {
     setOpenIndex((prev) => (prev === index ? null : index));
 
   return (
-    <section id="faq" className="bg-gray-light py-24 lg:py-32">
+    <section id="faq" className="bg-gray-light pt-12 pb-24 lg:pt-16 lg:pb-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         {/* ── Encabezado ─────────────────────────────────────────── */}

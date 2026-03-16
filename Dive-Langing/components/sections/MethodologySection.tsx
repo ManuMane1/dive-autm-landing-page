@@ -30,7 +30,7 @@ export default function MethodologySection() {
     METHODOLOGY;
 
   return (
-    <section id="metodologia" className="bg-navy py-24 lg:py-32 overflow-hidden">
+    <section id="metodologia" className="bg-navy pt-12 pb-24 lg:pt-16 lg:pb-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         {/* ── Encabezado ─────────────────────────────────────────── */}
